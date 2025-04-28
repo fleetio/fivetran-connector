@@ -1,6 +1,6 @@
 import json
 from typing import List, Dict
-import pandas as pd
+from flatten_json import flatten
 import requests
 
 from fivetran_connector_sdk import Connector
@@ -34,6 +34,12 @@ def base_schema():
             "primary_key": [
                 "id"
             ],
+            "columns": {
+                "custom_fields": "JSON",
+                "attachment_permissions": "JSON",
+                "assigned_contacts": "JSON",
+                "labels": "JSON"
+            },
             "request_info": {
                 "path": "/v2/issues",
                 "params": {
@@ -46,6 +52,11 @@ def base_schema():
             "primary_key": [
                 "id"
             ],
+            "columns": {
+                "custom_fields": "JSON",
+                "attachment_permissions": "JSON",
+                "labels": "JSON"
+            },
             "request_info": {
                 "path": "/v2/service_entries",
                 "params": {
@@ -58,6 +69,10 @@ def base_schema():
             "primary_key": [
                 "id"
             ],
+            "columns": {
+                "custom_fields": "JSON",
+                "labels": "JSON"
+            },
             "request_info": {
                 "path": "/v1/vehicles",
                 "params": {
@@ -118,6 +133,10 @@ def base_schema():
             "primary_key": [
                 "id"
             ],
+            "columns": {
+                "custom_fields": "JSON",
+                "labels": "JSON"
+            },
             "request_info": {
                 "path": "/v1/purchase_orders",
                 "params": {
@@ -142,7 +161,11 @@ def base_schema():
     
 # Define the schema function which lets you configure the schema your connector delivers.
 def schema(configuration: dict) -> List[Dict[str, List]]:
-    keys_to_include = ["table", "primary_key"]
+    keys_to_include = [
+            "table", 
+            "primary_key", 
+            "columns",
+        ]
     base = base_schema()
     schema = update_list_of_dicts(base, keys_to_include)
     
@@ -183,7 +206,7 @@ def update(configuration: dict, state: dict):
                                 "X-Client-Name": "data_connector",
                                 "X-Client-Platform": "fleetio_fivetran"
                                 }
-    headers = configuration.update(additional_configuration)
+    headers = {**configuration, **additional_configuration}
     for schema in base:
         log.info(f"Starting sync for {schema['table']}")
         yield from sync_table(
@@ -203,13 +226,12 @@ def sync_table(base_url, path, headers, params, table):
             return
         
         data = response.get("records", [])
-
         if not data:
             break
 
         log.info(f"Processing data for {path}")
         for item in data:
-            flat_item = pd.json_normalize(item, sep="_")
+            flat_item = flatten(item)
             yield op.upsert(table=table, data=flat_item)
         
         has_more_pages, params = continue_pagination(response)
@@ -222,5 +244,6 @@ if __name__ == "__main__":
         with open("configuration.json", 'r') as f:
             configuration = json.load(f)
     except FileNotFoundError:
+        log.info("Using empty configuration!")
         configuration = {}
     connector.debug(configuration=configuration)
