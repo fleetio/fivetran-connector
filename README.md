@@ -3,7 +3,7 @@
 This is the code for the Fleetio connector based on the [Fivetran connector SDK](https://fivetran.com/docs/connector-sdk). 
 
 ## Fleetio Overview
-View the Fleetio website [here](https://fleetio.com). For for information the Fleetio API, check out out [Fleetio API Portal](https://developer.fleetio.com).
+View the Fleetio website [here](https://fleetio.com). For more information on the Fleetio API, check out [Fleetio API Portal](https://developer.fleetio.com).
 
 ## Local development
 Before starting, you'll need to install the Fivetran Connector SDK package with `pip install fivetran-connector-sdk`.
