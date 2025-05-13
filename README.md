@@ -8,7 +8,7 @@ View the Fleetio website [here](https://fleetio.com). For more information on th
 ## Local development
 Before starting, you'll need to install the Fivetran Connector SDK package with `pip install fivetran-connector-sdk`.
 Run either `fivetran debug` or `python connector.py` to test the connector. 
-To deploy your changes to Fivetran, update the `configuration.json` file with your Fleetio API credentials:
+To deploy your changes to Fivetran, copy the `configuration.example.json` file to `configuration.json` and update the new file with your Fleetio API credentials:
 ```
 {
     "Account-Token": "<accountToken>",
