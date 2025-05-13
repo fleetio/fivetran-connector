@@ -23,7 +23,7 @@ def base_schema():
                 "id"
             ],
             "request_info": {
-                "path": "/v1/submitted_inspection_forms",
+                "path": "/submitted_inspection_forms",
                 "params": {
                     "per_page": 100
                 }
@@ -41,7 +41,7 @@ def base_schema():
                 "labels": "JSON"
             },
             "request_info": {
-                "path": "/v2/issues",
+                "path": "/issues",
                 "params": {
                     "per_page": 100
                 }
@@ -58,7 +58,7 @@ def base_schema():
                 "labels": "JSON"
             },
             "request_info": {
-                "path": "/v2/service_entries",
+                "path": "/service_entries",
                 "params": {
                     "per_page": 100
                 }
@@ -74,7 +74,7 @@ def base_schema():
                 "labels": "JSON"
             },
             "request_info": {
-                "path": "/v1/vehicles",
+                "path": "/vehicles",
                 "params": {
                     "per_page": 100
                 }
@@ -86,7 +86,7 @@ def base_schema():
                 "id"
             ],
             "request_info": {
-                "path": "/v1/expense_entries",
+                "path": "/expense_entries",
                 "params": {
                     "per_page": 100
                 }
@@ -98,7 +98,7 @@ def base_schema():
                 "id"
             ],
             "request_info": {
-                "path": "/v2/contacts",
+                "path": "/contacts",
                 "params": {
                     "per_page": 100
                 }
@@ -110,7 +110,7 @@ def base_schema():
                 "id"
             ],
             "request_info": {
-                "path": "/v1/fuel_entries",
+                "path": "/fuel_entries",
                 "params": {
                     "per_page": 100
                 }
@@ -122,7 +122,7 @@ def base_schema():
                 "id"
             ],
             "request_info": {
-                "path": "/v1/parts",
+                "path": "/parts",
                 "params": {
                     "per_page": 100
                 }
@@ -138,7 +138,7 @@ def base_schema():
                 "labels": "JSON"
             },
             "request_info": {
-                "path": "/v1/purchase_orders",
+                "path": "/purchase_orders",
                 "params": {
                     "per_page": 100
                 }
@@ -150,7 +150,7 @@ def base_schema():
                 "id"
             ],
             "request_info": {
-                "path": "/v1/vehicle_assignments",
+                "path": "/vehicle_assignments",
                 "params": {
                     "per_page": 100
                 }
@@ -202,7 +202,7 @@ def update(configuration: dict, state: dict):
     base_url = "https://secure.fleetio.com/api"
     base = base_schema()
     additional_configuration =  {"Accept": "application/json",
-                                "X-Api-Version": "2024-03-15", 
+                                "X-Api-Version": "2025-05-05", 
                                 "X-Client-Name": "data_connector",
                                 "X-Client-Platform": "fleetio_fivetran"
                                 }
