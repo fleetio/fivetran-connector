@@ -179,7 +179,7 @@ def continue_pagination(response_json):
 
     next_cursor = response_json.get("next_cursor", None)
     if next_cursor is not None:
-        params = {"next_cursor": next_cursor}
+        params = {"start_cursor": next_cursor}
     else:
         has_more_pages = False
     return has_more_pages, params
